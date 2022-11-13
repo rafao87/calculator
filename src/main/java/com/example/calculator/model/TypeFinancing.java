@@ -29,4 +29,5 @@ public enum TypeFinancing {
     public List<Integer> getIntervals() {
         return this.intervals;
     }
+
 }

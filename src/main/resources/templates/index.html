@@ -8,67 +8,52 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
     <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
-    <script type="text/javascript">
-    $("#typeLoan").change(function(){
-        var typeLoanId = $(this).val();
-        $.ajax({
-            type: 'GET',
-            url: '/type/' + typeLoanId,
-            success: function(data){
-                var montlyInstallments = $('#montlyInstallments'), option="";
-                montlyInstallments.empty();
-                $('#montlyInstallments').removeAttr('hidden');
-                console.log(data);
-                for(var i=0; i<data.length; i++){
-                    option = option + "<option value='"+data[i].id + "'>"+data[i] + "</option>";
-                }
-                slctSubcat.append(option);
-            },
-            error:function(){
-                alert("error");
-            }
-
-        });
-    });
-
-    </script>
 </head>
 <body>
 <div class="container">
     <h1>Calculador de prestacao</h1>
     <hr>
     <h2>Save Employee</h2>
+    <div class="container">
+        <form action="#" th:action="@{/calculate}" th:object="${loan}"
+              method="POST">
+            <div class="row">
+                <div class="col-md-5">
+                    <label>Valor de viatura</label>
+                    <input type="text" th:field="*{totalValue}" placeholder="Valor da viatura"
+                           class="form-control mb-4 col-4">
+                    <p th:if="${#fields.hasErrors('totalValue')}" th:errorclass="error" th:errors="*{totalValue}" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <label>Tipo de empr&eacute;stimo</label>
+                    <select th:field="*{financing.type}" id="typeLoan">
+                        <option th:value="'INTERNAL'" th:text="Interno"></option>
+                        <option th:value="'EXTERNAL'" th:text="Externo"></option>
+                    </select>
+                    <p th:if="${#fields.hasErrors('financing.type')}" th:errorclass="error" th:errors="*{financing.type}" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <label>Quantidade de mensalidades</label>
+                    <input type="text" th:field="*{financing.numberMonthlyInstallments}" placeholder="Total de mensalidades"
+                           class="form-control mb-4 col-4">
+                    <p th:if="${#fields.hasErrors('financing.numberMonthlyInstallments')}" th:errorclass="error" th:errors="*{financing.numberMonthlyInstallments}" />
+                </div>
+            </div>
+            <button type="submit" class="btn btn-info col-2">Calcular</button>
+        </form>
 
-    <form action="#" th:action="@{/calculate}" th:object="${carLoan}"
-          method="POST">
-<!--        <input type="text" th:field="*{numberMonthlyInstallments}" placeholder="Total de mensalidades"-->
-<!--               class="form-control mb-4 col-4">-->
-        <input type="text" th:field="*{totalValue}" placeholder="Valor da viatura"
-               class="form-control mb-4 col-4">
-        <select th:field="*{type}"  id="typeLoan">
-            <option th:value="'INTERNAL'" th:text="Interno" ></option>
-            <option th:value="'INTERNAL'" th:text="Externo"></option>
-        </select>
+        <label th:text="${monthlyValueLabel}"></label>
 
-<!--        <select th:field="*{numberMonthlyInstallments}"  th:hidden: true>-->
-<!--        </select>-->
-        <select th:field="*{numberMonthlyInstallments}">
-            <option th:each="option : ${intervals}"
-                    th:value="${option}"
-                    th:text="${option}"
-            >
-                Options
-            </option>
-        </select>
-
-        <button type="submit" class="btn btn-info col-2">Calcular</button>
-    </form>
-    <label th:text="${monthlyValueLabel}"></label>
-
-
+    </div>
     <hr>
-
-    <a th:href="@{/}"> Back to Employee List</a>
+    <ul>
+<!--        <li th:each="err : ${#fields.errors('id')}" th:text="${err}" />-->
+<!--        <li th:each="err : ${#fields.errors('name')}" th:text="${err}" />-->
+    </ul>
 </div>
 </body>
 </html>
