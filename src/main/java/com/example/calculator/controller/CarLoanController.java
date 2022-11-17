@@ -30,7 +30,6 @@ public class CarLoanController {
     private final InstallmentCalculatorService installmentCalculatorService;
     private final ContactService contactService;
 
-    
     @GetMapping("/calculate")
     public String viewHomePage(Model model) {
     	model.addAttribute("loan",new Loan());

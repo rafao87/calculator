@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Employee Management System</title>
+    <title>Valor calculado</title>
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -20,8 +20,6 @@
             	<p>N&uacute;mero de parcelas: <label th:text="${param.numberMonthly}" th:class="text-info"></label></p>
             	<p>O valor das parcelas &eacute;: <label th:text="${param.monthlyValue}" th:class="text-info"></label></p>
             	<p>O valor da viatura &eacute;: <label th:text="${param.carValue}" th:class="text-info"></label></p>
-            	<!--<label th:text="${param.monthlyValue}" th:class="text-info"></label>
-            	<label th:text="${monthlyValueLabel}" th:class="text-info"></label>-->
             </h5>
             <div class="row">
                 <div class="col-md-5">
@@ -42,13 +40,8 @@
 
             <button type="submit" class="btn btn-info col-2">Salvar</button>
         </form>
-
     </div>
     <hr>
-    <ul>
-<!--        <li th:each="err : ${#fields.errors('id')}" th:text="${err}" />-->
-<!--        <li th:each="err : ${#fields.errors('name')}" th:text="${err}" />-->
-    </ul>
 </div>
 </body>
 </html>
