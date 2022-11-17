@@ -14,9 +14,7 @@
 		    <h1>Calculador de Presta&ccedil;&atilde;o</h1>
 		    <hr>
 		    <div class="container">
-		        <form action="#" th:action="@{/calculate}" th:object="${loan}"
-		              method="POST">
-		            
+		        <form action="#" th:action="@{/calculate}" th:object="${loan}" method="POST">
 		            <div class="row">
 		                <div class="col-md-5">
 		                    <label>Tipo de empr&eacute;stimo</label>
@@ -36,8 +34,6 @@
 		                        <option th:value="48" th:text="48"></option>
 		                        <option th:value="60" th:text="60"></option>
 		                    </select>
-		                    <!--  <input type="text" th:field="*{financing.numberMonthlyInstallments}" placeholder="Total de mensalidades"
-		                           class="form-control mb-4 col-4">-->
 		                </div>
 		            </div>
 		            <div class="row">
@@ -50,13 +46,8 @@
 		            <button type="submit" class="btn btn-info col-2">Calcular</button>
 		            <p th:if="${#fields.hasErrors('financing')}" th:errorclass="text-danger" th:errors="*{financing}" />
 		        </form>
-		
 		    </div>
 		    <hr>
-		    <ul>
-		<!--        <li th:each="err : ${#fields.errors('id')}" th:text="${err}" />-->
-		<!--        <li th:each="err : ${#fields.errors('name')}" th:text="${err}" />-->
-		    </ul>
 		</div>
 	</body>
 </html>

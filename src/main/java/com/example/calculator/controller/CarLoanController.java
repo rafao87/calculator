@@ -3,7 +3,6 @@ package com.example.calculator.controller;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -12,10 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.calculator.dto.Contact;
 import com.example.calculator.dto.Loan;
@@ -71,22 +68,31 @@ public class CarLoanController {
     }
 
     @GetMapping("/contact")
-    public String viewContactPage(Model model, Loan loan, Contact contact ) {
+    public String viewContactPage(@RequestParam(value="monthlyValue",required=false) String monthlyValue, 
+    		@RequestParam(value="numberMonthly",required=false) String numberMonthly, 
+    		@RequestParam(value="type",required=false) String type,
+    		@RequestParam(value="carValue",required=false) String carValue,
+    		Model model, Loan loan, Contact contact ) {
     	model.addAttribute("loan", loan);
         return "contact";
     }
     
     @PostMapping("/contact")
-    public String saveContact(Loan loan, Contact contact, BindingResult result, Model model) {
+    public String saveContact(@RequestParam(value="monthlyValue",required=false) String monthlyValue, 
+    		@RequestParam(value="numberMonthly",required=false) String numberMonthly, 
+    		@RequestParam(value="type",required=false) String type,
+    		@RequestParam(value="carValue",required=false) String carValue,
+    		Loan loan, Contact contact, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
             return "contact";
         }
 
-        //contactService.save(contact);
+        //TODO: Esse método é responsável por salvar no banco H2
+        //contactService.save(contact, monthlyValue, numberMonthly, type, carValue);
         
         try {
-			contactService.saveInFile(contact, loan/*, monthlyValue, numberMonthly, type, carValue*/);
+			contactService.saveInFile(contact, monthlyValue, numberMonthly, type, carValue);
 		} catch (IOException e) {
 			log.error("Problemas ao gerar arquivo", e.getMessage());
 		}

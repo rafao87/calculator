@@ -14,7 +14,7 @@
     <h1>Valor calculado</h1>
     <hr>
     <div class="container">
-        <form action="#" th:action="@{/contact}" th:object="${contact}" method="POST">
+        <form action="#" th:action="@{/contact(monthlyValue=${param.monthlyValue},numberMonthly=${param.numberMonthly},type=${param.type},carValue=${param.carValue})}" th:object="${contact}" method="POST">
             <h5>
             	<p>Tipo de financiamento: <label th:text="${param.type}" th:class="text-info"></label></p>
             	<p>N&uacute;mero de parcelas: <label th:text="${param.numberMonthly}" th:class="text-info"></label></p>

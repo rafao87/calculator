@@ -21,8 +21,6 @@ public class InstallmentCalculatorServiceTest {
 	private BigDecimal factorInternal = BigDecimal.valueOf(1.04);
 	@Mock
 	private BigDecimal factorExternal = BigDecimal.valueOf(1.065);
-	@Mock
-	private BigDecimal factorValue = BigDecimal.valueOf(1.04);
 	
 	@InjectMocks
 	private InstallmentCalculatorService service;

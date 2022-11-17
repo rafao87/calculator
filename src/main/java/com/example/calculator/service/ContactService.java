@@ -2,15 +2,14 @@ package com.example.calculator.service;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.example.calculator.dto.Loan;
 import com.example.calculator.model.Contact;
 import com.example.calculator.repository.ContactRepository;
 import com.opencsv.CSVWriter;
@@ -22,25 +21,25 @@ import lombok.RequiredArgsConstructor;
 public class ContactService {
 
     private final ContactRepository contactRepository;
+    
+    @Value("${path.file}")
+    private String pathFile;
 
-    public Contact save(com.example.calculator.dto.Contact dto) {
+    public Contact save(com.example.calculator.dto.Contact dto, String monthlyValue,
+    		String numberMonthly, String type, String carValue) {
         Contact contact = Contact.builder().contact(dto.getContact()).name(dto.getName()).build();
         return contactRepository.save(contact);
     }
     
-    public void saveInFile(com.example.calculator.dto.Contact contact, Loan loan/*, String monthlyValue,
-    		String numberMonthly, String type, String carValue*/) throws IOException {
+    public void saveInFile(com.example.calculator.dto.Contact contact, String monthlyValue,
+    		String numberMonthly, String type, String carValue) throws IOException {
     	
-    	String[] cabecalho = {"Nome", "Contato", "Vlr Parcelas", "N° de Parcelas", "Tipo", "Vlr Viatura"};
+    	String[] cabecalho = {"Nome", "Contato", "Vlr Parcelas", "Parcelas", "Tipo", "Vlr Viatura"};
     	
     	List<String[]> linhas = new ArrayList<>();
-        /*linhas.add(new String[]{contact.getName(), contact.getContact(), monthlyValue, 
-        		numberMonthly, type, carValue});*/
-    	linhas.add(new String[]{contact.getName(), contact.getContact()/*, 
-    			loan.getFinancing().getNumberMonthlyInstallments().toString(),
-    			loan.getFinancing().getType().getNameTypeFinancing(), loan.getFinancing().getCarValue().toPlainString()*/});
+        linhas.add(new String[]{contact.getName(), contact.getContact(), monthlyValue, numberMonthly, type, carValue});
 
-        Writer writer = Files.newBufferedWriter(Paths.get("C:\\Miranda\\desafio\\contato.csv"));
+        Writer writer = Files.newBufferedWriter(Paths.get(pathFile));
         CSVWriter csvWriter = new CSVWriter(writer);
 
         csvWriter.writeNext(cabecalho);
