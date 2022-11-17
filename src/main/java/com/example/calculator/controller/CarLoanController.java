@@ -55,15 +55,11 @@ public class CarLoanController {
         	result.addError(error);
         	return "index";
         }
-        //return "redirect:/contact?monthlyValue=" +monthlyValue.toPlainString();
+        
         return "redirect:/contact?monthlyValue=" +monthlyValue.toPlainString()+ 
         		"&numberMonthly="+loan.getFinancing().getNumberMonthlyInstallments()+
         		"&type="+loan.getFinancing().getType().getNameTypeFinancing()+
         		"&carValue="+loan.getFinancing().getCarValue();
-        /*return "contact?monthlyValue=" +monthlyValue.toPlainString()+ 
-				"&numberMonthly="+loan.getFinancing().getNumberMonthlyInstallments()+
-				"&type="+loan.getFinancing().getType().getNameTypeFinancing()+
-				"&carValue="+loan.getFinancing().getCarValue();*/
         
     }
 
