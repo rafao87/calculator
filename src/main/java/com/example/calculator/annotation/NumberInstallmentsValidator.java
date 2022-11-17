@@ -9,7 +9,13 @@ import java.util.Optional;
 
 public class NumberInstallmentsValidator implements ConstraintValidator<NumberInstallmentsType, Financing> {
 
-    @Override
+	@Override
+	public boolean isValid(Financing value, ConstraintValidatorContext context) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+   /* @Override
     public void initialize( NumberInstallmentsType constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
     }
@@ -20,6 +26,6 @@ public class NumberInstallmentsValidator implements ConstraintValidator<NumberIn
                 .map(Financing::getType)
                 .map(TypeFinancing::getIntervals)
                 .stream().anyMatch(list -> list.contains(financing.getNumberMonthlyInstallments()));
-    }
+    }*/
 
 }
