@@ -7,7 +7,8 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
-    <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -32,7 +33,7 @@
             <div class="row">
                 <div class="col-md-5">
                     <label>Contato</label>
-                    <input type="text" th:field="*{contact}" placeholder="Contato"
+                    <input type="text" th:field="*{contact}" placeholder="Contato" id="contato"
                            class="form-control mb-4 col-4">
                     <p th:if="${#fields.hasErrors('contact')}" th:errorclass="error" th:errors="*{contact}" />
                 </div>
@@ -45,3 +46,9 @@
 </div>
 </body>
 </html>
+
+<script type="text/javascript">
+    $( "#contato" ).keypress(function() {
+        $(this).mask('999 999 999');
+    });
+</script>

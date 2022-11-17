@@ -16,11 +16,19 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class InstallmentCalculatorService {
 
+	/** Variável responsável por armazenar o valor do factor interno */
     @Value("${factor.internal}")
     private Double factorInternal;
+    /** Variável responsável por armazenar o valor do factor interno */
     @Value("${factor.external}")
     private Double factorExternal;
     
+    /**
+     * Método responsável por calcular o valor da parcela
+     * 
+     * @param loan
+     * @return
+     */
     public BigDecimal calculate(Loan loan) {
     	
         Double factorValue = Optional.of(loan.getFinancing().getType())

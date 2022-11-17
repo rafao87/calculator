@@ -30,12 +30,25 @@ public class CarLoanController {
     private final InstallmentCalculatorService installmentCalculatorService;
     private final ContactService contactService;
 
+    /**
+     * Método responsável por exibir a tela principal do sistema
+     * @param model
+     * @return
+     */
     @GetMapping("/calculate")
     public String viewHomePage(Model model) {
     	model.addAttribute("loan",new Loan());
         return "index";
     }
     
+    /**
+     * Método responsável por fazer o cálculo da parcela e enviar esses dados
+     * para a página de contato
+     * @param loan
+     * @param result
+     * @param model
+     * @return
+     */
     @PostMapping("/calculate")
     public String calculatePage(@Valid Loan loan, BindingResult result, Model model) {
 
@@ -62,6 +75,17 @@ public class CarLoanController {
         
     }
 
+    /**
+     * Método responsável por carregar as informações vindas da tela de cálculo
+     * @param monthlyValue
+     * @param numberMonthly
+     * @param type
+     * @param carValue
+     * @param model
+     * @param loan
+     * @param contact
+     * @return
+     */
     @GetMapping("/contact")
     public String viewContactPage(@RequestParam(value="monthlyValue",required=false) String monthlyValue, 
     		@RequestParam(value="numberMonthly",required=false) String numberMonthly, 
@@ -72,6 +96,20 @@ public class CarLoanController {
         return "contact";
     }
     
+    /**
+     * Método responsável por enviar os dados vindos da tela de cálculo mais 
+     * os dados do contato e salvar eles em um arquivo csv
+     * 
+     * @param monthlyValue
+     * @param numberMonthly
+     * @param type
+     * @param carValue
+     * @param loan
+     * @param contact
+     * @param result
+     * @param model
+     * @return
+     */
     @PostMapping("/contact")
     public String saveContact(@RequestParam(value="monthlyValue",required=false) String monthlyValue, 
     		@RequestParam(value="numberMonthly",required=false) String numberMonthly, 
@@ -82,14 +120,11 @@ public class CarLoanController {
         if (result.hasErrors()) {
             return "contact";
         }
-
-        //TODO: Esse método é responsável por salvar no banco H2
-        //contactService.save(contact, monthlyValue, numberMonthly, type, carValue);
         
         try {
 			contactService.saveInFile(contact, monthlyValue, numberMonthly, type, carValue);
 		} catch (IOException e) {
-			log.error("Problemas ao gerar arquivo", e.getMessage());
+			log.error("Problemas ao gerar arquivo. Favor verificar se o caminho configurado existe na sua máquina.", e.getMessage());
 		}
 
         return  "redirect:/calculate";
